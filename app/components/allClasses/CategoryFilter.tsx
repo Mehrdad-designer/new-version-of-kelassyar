@@ -1,16 +1,7 @@
-// components/classes/ClassesFilter.tsx
+// components/classes/CategoryFilter.tsx
 "use client";
 
 import { useState } from "react";
-import InstructorFilter from "./InstructorFilter";
-import PriceRangeFilter from "./PriceRangeFilter";
-import ScheduleFilter from "./ScheduleFilter";
-import LevelFilter from "./LevelFilter";
-// import CategoryFilter from "./CategoryFilter";
-// import ScheduleFilter from "./ScheduleFilter";
-// import PriceRangeFilter from "./PriceRangeFilter";
-// import LevelFilter from "./LevelFilter";
-// import InstructorFilter from "./InstructorFilter";
 
 interface Category {
   id: number;
@@ -20,155 +11,78 @@ interface Category {
   icon: string;
 }
 
-interface ClassesFilterProps {
+interface CategoryFilterProps {
   categories: Category[];
-  levels: string[];
-  days: string[];
-  times: string[];
 }
 
-export default function ClassesFilter({
-  categories,
-  levels,
-  days,
-  times,
-}: ClassesFilterProps) {
-  const [priceRange, setPriceRange] = useState([0, 10000000]);
-  const [hasDiscount, setHasDiscount] = useState(false);
-  const [isOnline, setIsOnline] = useState(false);
-  const [hasCertificate, setHasCertificate] = useState(false);
+export default function CategoryFilter({ categories }: CategoryFilterProps) {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [showAll, setShowAll] = useState(false);
 
-  const handleClearFilters = () => {
-    setPriceRange([0, 10000000]);
-    setHasDiscount(false);
-    setIsOnline(false);
-    setHasCertificate(false);
+  const toggleCategory = (slug: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
+    );
   };
 
+  const displayedCategories = showAll ? categories : categories.slice(0, 5);
+
   return (
-    <div className="lg:sticky lg:top-24 space-y-6">
-      {/* Main Filter Card */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-purple-500 to-pink-600 p-5">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
-              <i className="fas fa-filter"></i>
-              فیلترها
-            </h3>
-            <button
-              onClick={handleClearFilters}
-              className="text-sm text-white/80 hover:text-white transition-colors flex items-center gap-1"
-            >
-              <i className="fas fa-times"></i>
-              پاک کردن
-            </button>
-          </div>
-        </div>
-
-        <div className="p-5 space-y-6">
-          {/* Categories */}
-          {/* <CategoryFilter categories={categories} /> */}
-
-          {/* Level */}
-          <LevelFilter levels={levels} />
-
-          {/* Schedule */}
-          <ScheduleFilter days={days} times={times} />
-
-          {/* Price Range */}
-          {/* <PriceRangeFilter
-            priceRange={priceRange}
-            setPriceRange={setPriceRange}
-          /> */}
-
-          {/* Features */}
-          <div>
-            <label className="block text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
-              <i className="fas fa-star text-yellow-500"></i>
-              ویژگی‌ها
-            </label>
-            <div className="space-y-3">
-              <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
-                <div className="flex items-center gap-2">
-                  <i className="fas fa-tag text-red-500"></i>
-                  <span className="text-gray-700 text-sm">دارای تخفیف</span>
-                </div>
-                <div className="relative">
-                  <input
-                    type="checkbox"
-                    checked={hasDiscount}
-                    onChange={(e) => setHasDiscount(e.target.checked)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-purple-500 transition-colors"></div>
-                  <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md peer-checked:translate-x-5 transition-transform"></div>
-                </div>
-              </label>
-
-              <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
-                <div className="flex items-center gap-2">
-                  <i className="fas fa-video text-green-500"></i>
-                  <span className="text-gray-700 text-sm">کلاس آنلاین</span>
-                </div>
-                <div className="relative">
-                  <input
-                    type="checkbox"
-                    checked={isOnline}
-                    onChange={(e) => setIsOnline(e.target.checked)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-purple-500 transition-colors"></div>
-                  <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md peer-checked:translate-x-5 transition-transform"></div>
-                </div>
-              </label>
-
-              <label className="flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
-                <div className="flex items-center gap-2">
-                  <i className="fas fa-certificate text-blue-500"></i>
-                  <span className="text-gray-700 text-sm">دارای گواهینامه</span>
-                </div>
-                <div className="relative">
-                  <input
-                    type="checkbox"
-                    checked={hasCertificate}
-                    onChange={(e) => setHasCertificate(e.target.checked)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-purple-500 transition-colors"></div>
-                  <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md peer-checked:translate-x-5 transition-transform"></div>
-                </div>
-              </label>
+    <div>
+      <label className="block text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
+        <i className="fas fa-th-large text-purple-500"></i>
+        دسته‌بندی
+      </label>
+      <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+        {displayedCategories.map((category) => (
+          <label
+            key={category.id}
+            className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors group"
+          >
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={selectedCategories.includes(category.slug)}
+                onChange={() => toggleCategory(category.slug)}
+                className="peer sr-only"
+              />
+              <div className="w-5 h-5 border-2 border-gray-300 rounded-md peer-checked:bg-purple-500 peer-checked:border-purple-500 transition-all flex items-center justify-center">
+                <i className="fas fa-check text-white text-xs opacity-0 peer-checked:opacity-100"></i>
+              </div>
             </div>
-          </div>
-
-          {/* Instructor Filter */}
-          <InstructorFilter />
-        </div>
-
-        {/* Apply Button */}
-        <div className="p-5 border-t border-gray-100">
-          <button className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all">
-            اعمال فیلترها
-          </button>
-        </div>
+            <div className="flex items-center gap-2 flex-1">
+              <i
+                className={`fas ${category.icon} text-gray-400 group-hover:text-purple-500 transition-colors`}
+              ></i>
+              <span className="text-gray-700 text-sm group-hover:text-purple-600 transition-colors">
+                {category.name}
+              </span>
+            </div>
+            <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+              {category.count.toLocaleString("fa-IR")}
+            </span>
+          </label>
+        ))}
       </div>
 
-      {/* Help Card */}
-      <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg p-6 text-white">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-            <i className="fas fa-question-circle text-xl"></i>
-          </div>
-          <div>
-            <h4 className="font-bold">کمک نیاز دارید؟</h4>
-            <p className="text-sm text-blue-100">ما کمکتون می‌کنیم</p>
-          </div>
-        </div>
-        <button className="w-full py-2.5 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors">
-          تماس با مشاور
+      {categories.length > 5 && (
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="mt-3 text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1"
+        >
+          {showAll ? (
+            <>
+              <i className="fas fa-chevron-up"></i>
+              نمایش کمتر
+            </>
+          ) : (
+            <>
+              <i className="fas fa-chevron-down"></i>
+              نمایش همه ({categories.length})
+            </>
+          )}
         </button>
-      </div>
+      )}
     </div>
   );
 }

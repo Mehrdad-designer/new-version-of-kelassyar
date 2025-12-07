@@ -1,13 +1,11 @@
 // app/classes/page.tsx
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Breadcrumb from '@/components/Breadcrumb';
-import ClassesHero from '@/components/classes/ClassesHero';
-import ClassesSearch from '@/components/classes/ClassesSearch';
-import ClassesFilter from '@/components/classes/ClassesFilter';
-import ClassesSortBar from '@/components/classes/ClassesSortBar';
-import ClassesGrid from '@/components/classes/ClassesGrid';
-import ClassesPagination from '@/components/classes/ClassesPagination';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
+import ClassesHero from './../../components/allClasses/ClassesHero';
+import ClassesSearch from './../../components/allClasses/ClassesSearch';
+import ClassesFilter from './../../components/allClasses/ClassesFilter';
+import ClassesSortBar from './../../components/allClasses/ClassesSortBar';
+import ClassesGrid from './../../components/allClasses/ClassesGrid';
+import ClassesPagination from './../../components/allClasses/ClassesPagination';
 
 // داده‌های نمونه کلاس‌ها
 const classesData = [
