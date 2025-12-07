@@ -374,7 +374,7 @@ export default function Header() {
                   ورود
                 </Link>
                 <Link
-                  href="/register"
+                  href="/signin"
                   className="px-5 py-2.5 bg-gradient-to-r from-primary-500 to-primary-700 text-blue-950 font-medium rounded-xl hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300 hover:-translate-y-0.5"
                 >
                   ثبت‌نام
@@ -596,7 +596,7 @@ export default function Header() {
                 ورود
               </Link>
               <Link
-                href="/register"
+                href="/signin"
                 className="block w-full py-3 text-center text-blue-500 border-2 border-b-blue-500 font-medium bg-gradient-to-r from-primary-500 to-primary-700 rounded-xl hover:shadow-lg transition-all"
               >
                 ثبت‌نام
